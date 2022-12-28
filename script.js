@@ -13,7 +13,14 @@ $("[data-question]").on("click", function () {
         }
     }
     else if ($(this).attr("data-type") == "input") {
-
+        $(this).on("input", function(){
+            if ($(this).val()) {
+                localStorage.setItem($(this).attr("data-question"), $(this).val());
+            }
+            else {
+                localStorage.setItem($(this).attr("data-question"), "0");
+            }
+        });
     }
     else {
         localStorage.setItem($(this).attr("data-question"), $(this).attr("data-answer"));
@@ -21,6 +28,13 @@ $("[data-question]").on("click", function () {
 });
 $("[data-clear]").on("click", function () {
     $("[data-clear-target=" + $(this).attr("data-clear") +"]").each(function() {
+        if ($(this).find("input").prop("checked") == true) {
+            $(this).click();
+        }
+    });
+});
+$("[data-clear-target]").on("click", function () {
+    $("[data-clear=" + $(this).attr("data-clear-target") +"]").each(function() {
         if ($(this).find("input").prop("checked") == true) {
             $(this).click();
         }
